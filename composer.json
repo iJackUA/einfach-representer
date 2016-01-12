@@ -1,0 +1,33 @@
+{
+    "name": "enzyme/representer",
+    "description": "Object serializer/de-serializer witch method chaining syntax",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ievgen Kuzminov",
+            "email": "kyzminov@gmail.com",
+            "homepage" : "http://stdout.in"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php" : ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "enzyme\\representer\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "enzyme\\representer\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
