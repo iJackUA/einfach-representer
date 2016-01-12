@@ -1,6 +1,6 @@
 {
     "name": "enzyme/representer",
-    "description": "Object serializer/de-serializer witch method chaining syntax",
+    "description": "Proof of concept: object serializer/de-serializer with method chaining syntax",
     "type": "library",
     "license": "MIT",
     "authors": [
