@@ -25,8 +25,8 @@ class PostRepresenter extends \enzyme\representer\Representer
             $this->property('status'),
 
             $this->property('pubDate')
-                ->serializer([$this, 'showDate'])
-            //->extractor([$this, 'extractDate'])
+                ->getter([$this, 'showDate'])
+                ->setter([$this, 'extractDate'])
         ];
     }
 
@@ -37,10 +37,9 @@ class PostRepresenter extends \enzyme\representer\Representer
 
     public function extractDate($object, $attributeName, $value)
     {
-        return $object->$attributeName = \DateTime::createFromFormat('Y-m-d', $value);
+        return \DateTime::createFromFormat('Y-m-d', $value);
     }
 }
-
 
 
 class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
@@ -66,5 +65,18 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($projection['titleAs'], $this->target->title);
         $this->assertEquals($projection['status'], $this->target->status);
         $this->assertEquals($projection['pubDate'], $this->target->pubDate->format('Y-m-d'));
+    }
+
+    public function testRestore()
+    {
+        $projection = PostRepresenter::one($this->target);
+
+        $post = PostRepresenter::restore($projection, Post::class);
+
+        $this->assertInstanceOf(Post::class, $post);
+
+        $this->assertEquals($post->title, $this->target->title);
+        $this->assertEquals($post->status, $this->target->status);
+        $this->assertEquals($post->pubDate, $this->target->pubDate);
     }
 }

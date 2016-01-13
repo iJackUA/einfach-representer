@@ -1,7 +1,16 @@
-<?php
+## Enzyme-Represesenter
 
-require 'vendor/autoload.php';
+Proof of concept representer objects with chain syntax rules notation.
+Performs object serialization and object restore.
 
+Currently does not support nested values.
+
+## Examples
+
+See tests for the most recent version.
+
+Assume some Object with data that could not be simply json-encoded
+```php
 class Post
 {
     public $title = 'Cool story bro';
@@ -13,7 +22,12 @@ class Post
         $this->pubDate = new \DateTime();
     }
 }
+```
 
+Create `Representer` class with representation rules.
+You can rename options, assing default value (in case if it will be null) and specify custom geter/setter
+
+```php
 class PostRepresenter extends \enzyme\representer\Representer
 {
     public function rules()
@@ -41,13 +55,17 @@ class PostRepresenter extends \enzyme\representer\Representer
         return $object->$attributeName = \DateTime::createFromFormat('Y-m-d', $value);
     }
 }
+```
 
+Create presentation array from object
 
+```php
 $post = new Post();
-
 $projection = PostRepresenter::one($post);
+```
 
-// reverse usage idea
-$post = PostRepresenter::restore($projection, Post::class);
+Restoring object from presentation array data
 
-print_r($projection);
+```php
+$restoredPost = PostRepresenter::restore($projection, Post::class);
+```

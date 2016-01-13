@@ -8,7 +8,8 @@ class PropertyRule
 
     protected $toName;
     protected $defaultValue;
-    protected $serializerCallable;
+    protected $getterCallable;
+    protected $setterCallable;
 
     public function __construct($object, $name)
     {
@@ -28,9 +29,15 @@ class PropertyRule
         return $this;
     }
 
-    public function serializer($callable)
+    public function getter($callable)
     {
-        $this->serializerCallable = $callable;
+        $this->getterCallable = $callable;
+        return $this;
+    }
+
+    public function setter($callable)
+    {
+        $this->setterCallable = $callable;
         return $this;
     }
 
@@ -38,10 +45,22 @@ class PropertyRule
     {
         $name = ($this->toName) ? $this->toName : $this->name;
 
-        if (is_callable($this->serializerCallable)) {
-            $value = call_user_func($this->serializerCallable, $this->object, $this->name);
+        if (is_callable($this->getterCallable)) {
+            $value = call_user_func($this->getterCallable, $this->object, $this->name);
         } else {
             $value = ($this->object->{$this->name}) ? $this->object->{$this->name} : $this->defaultValue;
+        }
+
+        return [$name => $value];
+    }
+
+    public function reverseCompile($projection)
+    {
+        $name = ($this->toName) ? $this->toName : $this->name;
+        $value = $projection[$name];
+
+        if (is_callable($this->setterCallable)) {
+            $value = call_user_func($this->setterCallable, $this->object, $this->name, $value);
         }
 
         return [$name => $value];
