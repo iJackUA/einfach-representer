@@ -71,11 +71,19 @@ $restoredPost = PostRepresenter::restore($projection, Post::class);
 ```
 
 
-## TODO: 
+## TODO Ideas: 
 
-* Collection representation (`::collection`)
-* Coersion (`->int`, `->float`, `->string`)
-* Traits composition
-* Property decoration/Nested serialization (`->representer(...)`)
-* Serialisation/de-serialisation (`RepresenterResponse` , `to_json`, `to_yaml`, `from_json`, `from_yaml`)
-* Wrapping collections (`->wrap('items')`)
+* Inverse property declaration (to allow any property name in projection, not coupled with source)
+* Property rules: render_null  (Manage default? Example `rename: function($object, $attr) { return uppercase($attr); } `)
+* Property decoration/Nested serialization (`->representer(ArtistRepresenter::class)->class(Artist::class)`)
+* Nested properties `->property('artist')->nested([ $this->property('films')->..., $this->property('name')->... ])` 
+* Collection representation `::collection` and `->collection()` 
+* Wrapping collections `->wrap('items')` and `->removeWrap()` for `->collection()`
+* Array to array representation
+* Coersion (`->int`, `->float`, `->string`). A way to coerce complex types/classes, DateTime?
+* Traits composition (Representers not inherited, but added via Traits)
+* External options in `::one`, `::collection` (should be passed to all $callables)
+* Serialisation/de-serialisation (`RepresenterResponse` , `to_json`, `to_yaml`, `from_json`, `from_yaml`, `xml` ?)
+* Check that Representer inheritance overwrites rules (try to do partial overwrite with `->inherit(true)`)
+* Try to do Representer mixins (via Traits?)
+
