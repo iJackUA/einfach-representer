@@ -69,3 +69,13 @@ Restoring object from presentation array data
 ```php
 $restoredPost = PostRepresenter::restore($projection, Post::class);
 ```
+
+
+## TODO: 
+
+* Collection representation (`::collection`)
+* Coersion (`->int`, `->float`, `->string`)
+* Traits composition
+* Property decoration/Nested serialization (`->representer(...)`)
+* Serialisation/de-serialisation (`RepresenterResponse` , `to_json`, `to_yaml`, `from_json`, `from_yaml`)
+* Wrapping collections (`->wrap('items')`)
