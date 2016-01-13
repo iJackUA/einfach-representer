@@ -13,7 +13,7 @@ class Representer
      */
     public $object;
 
-    public function __construct($object)
+    public function __construct($object = null)
     {
         $this->object = $object;
     }
@@ -68,5 +68,30 @@ class Representer
     public static function collection(array $array)
     {
         //TBD
+    }
+
+    /**
+     * @param $projection
+     * @param $className
+     */
+    public static function restore($projection, $className)
+    {
+        $instance = new static();
+        $rules = $instance->rules();
+        $object = new $className();
+
+        if (!empty($rules)) {
+            foreach ($rules as $rule) {
+                /** @var $rule PropertyRule */
+                $resultArray = $rule->reverseCompile($projection);
+
+                reset($resultArray);
+                $key = key($resultArray);
+                $value = $resultArray[$key];
+
+                $object->$key = $value;
+            }
+        }
+        return $object;
     }
 }
