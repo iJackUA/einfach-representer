@@ -1,46 +1,8 @@
 <?php
 namespace enzyme\representer\Test;
 
-class Post
-{
-    public $title = 'Cool story bro';
-    public $status = 1;
-    public $pubDate;
-
-    public function __construct()
-    {
-        $this->pubDate = new \DateTime();
-    }
-}
-
-class PostRepresenter extends \enzyme\representer\Representer
-{
-    public function rules()
-    {
-        return [
-            $this->property('title')
-                ->rename('titleAs')
-                ->def('Hi there!'),
-
-            $this->property('status'),
-
-            $this->property('pubDate')
-                ->getter([$this, 'showDate'])
-                ->setter([$this, 'extractDate'])
-        ];
-    }
-
-    public function showDate($object, $attributeName)
-    {
-        return $object->$attributeName->format('Y-m-d');
-    }
-
-    public function extractDate($object, $attributeName, $value)
-    {
-        return \DateTime::createFromFormat('Y-m-d', $value);
-    }
-}
-
+use enzyme\representer\test\data\Example1;
+use enzyme\representer\test\data\Example1Representer;
 
 class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,7 +10,7 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->target = new Post();
+        $this->target = new Example1();
     }
 
     public function tearDown()
@@ -58,7 +20,7 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
 
     public function testProjection()
     {
-        $projection = PostRepresenter::one($this->target);
+        $projection = Example1Representer::one($this->target);
 
         $this->assertNotEmpty($projection);
 
@@ -69,11 +31,11 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
 
     public function testRestore()
     {
-        $projection = PostRepresenter::one($this->target);
+        $projection = Example1Representer::one($this->target);
 
-        $post = PostRepresenter::restore($projection, Post::class);
+        $post = Example1Representer::restore($projection, Example1::class);
 
-        $this->assertInstanceOf(Post::class, $post);
+        $this->assertInstanceOf(Example1::class, $post);
 
         $this->assertEquals($post->title, $this->target->title);
         $this->assertEquals($post->status, $this->target->status);
