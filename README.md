@@ -52,7 +52,7 @@ class PostRepresenter extends \enzyme\representer\Representer
 
     public function extractDate($object, $attributeName, $value)
     {
-        return $object->$attributeName = \DateTime::createFromFormat('Y-m-d', $value);
+        return \DateTime::createFromFormat('Y-m-d', $value);
     }
 }
 ```

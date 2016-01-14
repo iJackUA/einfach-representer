@@ -24,7 +24,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "enzyme\\representer\\Test\\": "tests"
+            "enzyme\\representer\\test\\": "tests"
         }
     },
     "scripts": {

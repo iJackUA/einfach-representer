@@ -2,11 +2,11 @@
 namespace enzyme\representer;
 
 /**
- * Class Representer
+ * Trait Representer
  *
  * @package enzyme\representer
  */
-class Representer
+trait Representer
 {
     /**
      * Object that is being represented
