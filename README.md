@@ -5,6 +5,15 @@ Performs object serialization and object restore.
 
 Currently does not support nested values.
 
+## Motivation
+
+To have an object with representation logic that is able to convert complex object into array/string representation and vice versa. 
+According to the same rules.
+For example: serialize for AJAX data output and restore backend domain model on POST operation. 
+To have representation free of persistency or domain logic.  
+Or to use inside backend app for some kind of data mapping.
+
+
 ## Examples
 
 See tests for the most recent version.
@@ -115,7 +124,7 @@ $projection = PostRepresenter::one($post)->toYAML();
 * Nested properties `->property('artist')->nested([ $this->property('films')->..., $this->property('name')->... ])` 
 * Collection representation `::collection` and `->collection()` 
 * Wrapping collections `->wrap('items')` and `->removeWrap()` for `->collection()`
-* Array to array representation
+* Ability for "array to array" and "object to object" representations
 * Coersion (`->int`, `->float`, `->string`). A way to coerce complex types/classes, DateTime?
 * External options in `::one`, `::collection` (should be passed to all $callables)
 * Check that Representer inheritance overwrites rules (try to do partial overwrite with `->inherit(true)`)
