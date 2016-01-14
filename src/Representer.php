@@ -1,6 +1,8 @@
 <?php
 namespace enzyme\representer;
 
+use enzyme\representer\serializer\ArraySerializer;
+
 /**
  * Trait Representer
  *
@@ -8,14 +10,27 @@ namespace enzyme\representer;
  */
 trait Representer
 {
+    use ArraySerializer;
+
     /**
      * Object that is being represented
+     * or a collection handler
      */
-    public $object;
+    protected $object;
+    /**
+     * Strategy idicator
+     * 0 = restore
+     * 1 = one
+     * 2 = collection
+     *
+     * @var string
+     */
+    protected $strategy;
 
-    public function __construct($object = null)
+    public function __construct($object = null, $strategy = 0)
     {
         $this->object = $object;
+        $this->strategy = $strategy;
     }
 
     public function rules()
@@ -36,12 +51,23 @@ trait Representer
      * Represent one instance
      *
      * @param $object
-     * @return string
+     * @return static
      */
     public static function one($object)
     {
-        $instance = new static($object);
-        $rules = $instance->rules();
+        return new static($object, 1);
+    }
+
+
+    protected function getCollectionRepresentation()
+    {
+        //TBD
+        return ['collection', 'tbd'];
+    }
+
+    protected function getOneRepresentation()
+    {
+        $rules = $this->rules();
         $represented = [];
 
         if (!empty($rules)) {
@@ -58,6 +84,19 @@ trait Representer
         }
 
         return $represented;
+    }
+
+    protected function getRepresentation()
+    {
+        switch ($this->strategy) {
+            case 1:
+                return $this->getOneRepresentation();
+            case 2:
+                return $this->getCollectionRepresentation();
+            default:
+                throw new \Exception('Representer strategy not defined');
+        }
+
     }
 
     /**

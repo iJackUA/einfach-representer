@@ -4,7 +4,7 @@ namespace enzyme\representer\Test;
 use enzyme\representer\test\data\Example1;
 use enzyme\representer\test\data\Example1Representer;
 
-class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
+class ClassSerializationTest extends \PHPUnit_Framework_TestCase
 {
     public $target;
 
@@ -18,28 +18,33 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
         unset($this->target);
     }
 
-    public function testProjection()
+
+    public function testSerializationAsArray()
     {
         $projection = Example1Representer::one($this->target)->toArray();
-
-        $this->assertNotEmpty($projection);
 
         $this->assertEquals($projection['titleAs'], $this->target->title);
         $this->assertEquals($projection['status'], $this->target->status);
         $this->assertEquals($projection['pubDate'], $this->target->pubDate->format('Y-m-d'));
     }
 
-    public function testRestore()
+    public function testSerializationAsJson()
     {
-        $projection = Example1Representer::one($this->target)->toArray();
+        $text = Example1Representer::one($this->target)->toJSON();
 
-        $post = Example1Representer::restore($projection, Example1::class);
+        $this->assertJson($text);
+    }
 
-        $this->assertInstanceOf(Example1::class, $post);
+    public function testSerializationAsYaml()
+    {
+        $text = Example1Representer::one($this->target)->toYAML();
+        $yaml =
+            "titleAs: 'Cool story bro'
+status: 1
+pubDate: '2016-01-14'
+";
 
-        $this->assertEquals($post->title, $this->target->title);
-        $this->assertEquals($post->status, $this->target->status);
-        $this->assertEquals($post->pubDate, $this->target->pubDate);
+        $this->assertEquals($text, $yaml);
     }
 
 }

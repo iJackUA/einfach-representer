@@ -1,9 +1,13 @@
 <?php
 namespace enzyme\representer\test\data;
 
+use enzyme\representer\serializer\YAML;
+
 class Example1Representer
 {
     use \enzyme\representer\Representer;
+    use \enzyme\representer\serializer\JSON;
+    use \enzyme\representer\serializer\YAML;
 
     public function rules()
     {
