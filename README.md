@@ -28,8 +28,10 @@ Create `Representer` class with representation rules.
 You can rename options, assing default value (in case if it will be null) and specify custom geter/setter
 
 ```php
-class PostRepresenter extends \enzyme\representer\Representer
+class PostRepresenter
 {
+    use \enzyme\representer\Representer;
+
     public function rules()
     {
         return [
@@ -57,12 +59,15 @@ class PostRepresenter extends \enzyme\representer\Representer
 }
 ```
 
-Create presentation array from object
+## Representation
 
 ```php
 $post = new Post();
-$projection = PostRepresenter::one($post);
+$projection = PostRepresenter::one($post)->toArray();
 ```
+
+
+## Restore object from representation 
 
 Restoring object from presentation array data
 
@@ -70,9 +75,40 @@ Restoring object from presentation array data
 $restoredPost = PostRepresenter::restore($projection, Post::class);
 ```
 
+## Serialization
+
+You can serialize object directly to JSON or YAML.
+Serialization ability should be added via corresponding Trait
+
+```php
+class PostRepresenter
+{
+    use \enzyme\representer\Representer;
+    use \enzyme\representer\serializer\JSON;
+    ....
+}
+
+$projection = PostRepresenter::one($post)->toJSON();
+```
+
+```php
+class PostRepresenter
+{
+    use \enzyme\representer\Representer;
+    use \enzyme\representer\serializer\YAML;
+    ....
+}
+
+$projection = PostRepresenter::one($post)->toYAML();
+```
+
+
 
 ## TODO Ideas: 
 
+* ~~Traits composition (Representers not inherited, but added via Traits)~~
+* ~~Serialisation/de-serialisation (`toJSON`, `toYAML`)~~
+* De-serialisation (`fromJSON`, `fromYAML`)
 * Inverse property declaration (to allow any property name in projection, not coupled with source)
 * Property rules: render_null  (Manage default? Example `rename: function($object, $attr) { return uppercase($attr); } `)
 * Property decoration/Nested serialization (`->representer(ArtistRepresenter::class)->class(Artist::class)`)
@@ -81,9 +117,7 @@ $restoredPost = PostRepresenter::restore($projection, Post::class);
 * Wrapping collections `->wrap('items')` and `->removeWrap()` for `->collection()`
 * Array to array representation
 * Coersion (`->int`, `->float`, `->string`). A way to coerce complex types/classes, DateTime?
-* Traits composition (Representers not inherited, but added via Traits)
 * External options in `::one`, `::collection` (should be passed to all $callables)
-* Serialisation/de-serialisation (`RepresenterResponse` , `to_json`, `to_yaml`, `from_json`, `from_yaml`, `xml` ?)
 * Check that Representer inheritance overwrites rules (try to do partial overwrite with `->inherit(true)`)
 * Try to do Representer mixins (via Traits?)
 
