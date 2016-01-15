@@ -1,5 +1,5 @@
 <?php
-namespace enzyme\representer\Test;
+namespace enzyme\representer\test;
 
 use enzyme\representer\test\data\Example1;
 use enzyme\representer\test\data\Example1Representer;
