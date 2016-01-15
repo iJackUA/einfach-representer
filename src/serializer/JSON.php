@@ -5,7 +5,7 @@ namespace enzyme\representer\serializer;
  * Class JSON
  *
  * @package enzyme\representer\serializer
- s*
+ *
  */
 trait JSON
 {
