@@ -146,7 +146,7 @@ $projection = PostRepresenter::one($post)->toYAML();
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
 [ico-version]: https://img.shields.io/packagist/v/iJackUA/enzyme-representer.svg?style=flat
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat
