@@ -1,5 +1,5 @@
 <?php
-namespace enzyme\representer\Test;
+namespace enzyme\representer\test;
 
 use enzyme\representer\test\data\Example1;
 use enzyme\representer\test\data\Example1Representer;
@@ -41,7 +41,7 @@ class ClassSerializationTest extends \PHPUnit_Framework_TestCase
         $yaml =
             "titleAs: 'Cool story bro'
 status: 1
-pubDate: '2016-01-14'
+pubDate: '{$this->target->pubDate->format('Y-m-d')}'
 ";
 
         $this->assertEquals($text, $yaml);

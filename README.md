@@ -125,6 +125,7 @@ $projection = PostRepresenter::one($post)->toYAML();
 * ~~Traits composition (Representers not inherited, but added via Traits)~~
 * ~~Serialisation/de-serialisation (`toJSON`, `toYAML`)~~
 * De-serialisation (`fromJSON`, `fromYAML`)
+* Do a benchmark with https://github.com/phpbench/phpbench
 * Inverse property declaration (to allow any property name in projection, not coupled with source)
 * Property rules: render_null  (Manage default? Example `rename: function($object, $attr) { return uppercase($attr); } `)
 * Property decoration/Nested serialization (`->representer(ArtistRepresenter::class)->class(Artist::class)`)
