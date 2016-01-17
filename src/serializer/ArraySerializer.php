@@ -6,7 +6,6 @@ namespace enzyme\representer\serializer;
  *
  * @package enzyme\representer\serializer
  *
- * @method array getRepresentation()
  */
 trait ArraySerializer
 {
@@ -19,4 +18,6 @@ trait ArraySerializer
     {
         //TBD
     }
+
+    protected abstract function getRepresentation();
 }

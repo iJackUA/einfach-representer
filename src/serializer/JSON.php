@@ -6,7 +6,6 @@ namespace enzyme\representer\serializer;
  *
  * @package enzyme\representer\serializer
  *
- * @method array getRepresentation()
  */
 trait JSON
 {
@@ -19,4 +18,6 @@ trait JSON
     {
         // TBD
     }
+
+    protected abstract function getRepresentation();
 }

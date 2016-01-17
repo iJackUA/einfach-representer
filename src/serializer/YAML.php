@@ -8,7 +8,6 @@ use Symfony\Component\Yaml\Yaml as YamlDumper;
  *
  * @package enzyme\representer\serializer
  *
- * @method array getRepresentation()
  */
 trait YAML
 {
@@ -21,4 +20,6 @@ trait YAML
     {
         //TBD
     }
+
+    protected abstract function getRepresentation();
 }
