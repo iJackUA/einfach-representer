@@ -148,19 +148,19 @@ $projection = PostRepresenter::one($post)->toYAML();
 
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/iJackUA/einfach-representer.svg?style=flat
+[ico-version]: https://img.shields.io/packagist/v/einfach/representer.svg?style=flat
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat
 [ico-travis]: https://img.shields.io/travis/iJackUA/einfach-representer/master.svg?style=flat
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/iJackUA/einfach-representer.svg?style=flat
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/iJackUA/einfach-representer.svg?style=flat
-[ico-downloads]: https://img.shields.io/packagist/dt/iJackUA/einfach-representer.svg?style=flat
+[ico-downloads]: https://img.shields.io/packagist/dt/einfach/representer.svg?style=flat
 [ico-codeclimate]: 	https://img.shields.io/codeclimate/github/iJackUA/einfach-representer.svg?style=flat
 
-[link-packagist]: https://packagist.org/packages/iJackUA/einfach-representer
+[link-packagist]: https://packagist.org/packages/einfach/representer
 [link-travis]: https://travis-ci.org/iJackUA/einfach-representer
 [link-scrutinizer]: https://scrutinizer-ci.com/g/iJackUA/einfach-representer/code-structure
 [link-code-quality]: https://scrutinizer-ci.com/g/iJackUA/einfach-representer
-[link-downloads]: https://packagist.org/packages/iJackUA/einfach-representer
+[link-downloads]: https://packagist.org/packages/einfach/representer
 [link-author]: https://github.com/iJackUA
 [link-contributors]: ../../contributors
 [link-codeclimate]: https://codeclimate.com/github/iJackUA/einfach-representer
