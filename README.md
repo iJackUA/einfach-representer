@@ -1,4 +1,4 @@
-## Einfach-Represesenter
+## Einfach-Representer
 
 [![Build Status][ico-travis]][link-travis]
 
