@@ -1,5 +1,5 @@
 {
-    "name": "enzyme/representer",
+    "name": "einfach/representer",
     "description": "Proof of concept: object serializer/de-serializer with method chaining syntax",
     "type": "library",
     "license": "MIT",
@@ -21,12 +21,12 @@
     },
     "autoload": {
         "psr-4": {
-            "enzyme\\representer\\": "src"
+            "einfach\\representer\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "enzyme\\representer\\test\\": "tests"
+            "einfach\\representer\\test\\": "tests"
         }
     },
     "scripts": {

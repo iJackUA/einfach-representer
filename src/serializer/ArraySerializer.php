@@ -1,10 +1,10 @@
 <?php
-namespace enzyme\representer\serializer;
+namespace einfach\representer\serializer;
 
 /**
  * Class ArraySerializer
  *
- * @package enzyme\representer\serializer
+ * @package einfach\representer\serializer
  *
  */
 trait ArraySerializer

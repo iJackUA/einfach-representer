@@ -1,5 +1,5 @@
 <?php
-namespace enzyme\representer;
+namespace einfach\representer;
 
 class PropertyRule
 {
