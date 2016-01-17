@@ -1,6 +1,11 @@
 ## Enzyme-Represesenter
 
-[![Latest Version on Packagist][ico-version]][link-packagist] [![Software License][ico-license]](LICENSE.md) [![Build Status][ico-travis]][link-travis] [![Coverage Status][ico-scrutinizer]][link-scrutinizer] [![Quality Score][ico-code-quality]][link-code-quality] [![Total Downloads][ico-downloads]][link-downloads]
+[![Build Status][ico-travis]][link-travis]
+
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer] [![Quality Score][ico-code-quality]][link-code-quality] [![Code Climate][ico-codeclimate]][link-codeclimate]
+
+[![Latest Version on Packagist][ico-version]][link-packagist] [![Total Downloads][ico-downloads]][link-downloads] [![Software License][ico-license]](LICENSE.md)
+
 
 Proof of concept representer objects with chain syntax rules notation.
 Performs object serialization and object restore.
@@ -142,12 +147,13 @@ $projection = PostRepresenter::one($post)->toYAML();
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/iJackUA/enzyme-representer.svg?style=flat-square
-[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/iJackUA/enzyme-representer/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/iJackUA/enzyme-representer.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/iJackUA/enzyme-representer.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/iJackUA/enzyme-representer.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/iJackUA/enzyme-representer.svg?style=flat
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat
+[ico-travis]: https://img.shields.io/travis/iJackUA/enzyme-representer/master.svg?style=flat
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/iJackUA/enzyme-representer.svg?style=flat
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/iJackUA/enzyme-representer.svg?style=flat
+[ico-downloads]: https://img.shields.io/packagist/dt/iJackUA/enzyme-representer.svg?style=flat
+[ico-codeclimate]: 	https://img.shields.io/codeclimate/github/iJackUA/enzyme-representer.svg?style=flat
 
 [link-packagist]: https://packagist.org/packages/iJackUA/enzyme-representer
 [link-travis]: https://travis-ci.org/iJackUA/enzyme-representer
@@ -156,3 +162,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-downloads]: https://packagist.org/packages/iJackUA/enzyme-representer
 [link-author]: https://github.com/iJackUA
 [link-contributors]: ../../contributors
+[link-codeclimate]: https://codeclimate.com/github/iJackUA/enzyme-representer
