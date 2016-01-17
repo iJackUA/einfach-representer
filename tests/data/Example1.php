@@ -1,5 +1,5 @@
 <?php
-namespace enzyme\representer\test\data;
+namespace einfach\representer\test\data;
 
 class Example1
 {

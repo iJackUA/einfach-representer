@@ -1,10 +1,10 @@
 <?php
-namespace enzyme\representer\serializer;
+namespace einfach\representer\serializer;
 
 /**
  * Class JSON
  *
- * @package enzyme\representer\serializer
+ * @package einfach\representer\serializer
  *
  */
 trait JSON

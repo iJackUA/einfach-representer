@@ -1,12 +1,12 @@
 <?php
-namespace enzyme\representer;
+namespace einfach\representer;
 
-use enzyme\representer\serializer\ArraySerializer;
+use einfach\representer\serializer\ArraySerializer;
 
 /**
  * Trait Representer
  *
- * @package enzyme\representer
+ * @package einfach\representer
  */
 trait Representer
 {

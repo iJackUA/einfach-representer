@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="enzyme-representer Test Suite">
+        <testsuite name="Einfach Representer Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>

@@ -1,12 +1,12 @@
 <?php
-namespace enzyme\representer\serializer;
+namespace einfach\representer\serializer;
 
 use Symfony\Component\Yaml\Yaml as YamlDumper;
 
 /**
  * Class JSON
  *
- * @package enzyme\representer\serializer
+ * @package einfach\representer\serializer
  *
  */
 trait YAML

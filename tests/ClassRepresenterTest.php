@@ -1,8 +1,8 @@
 <?php
-namespace enzyme\representer\test;
+namespace einfach\representer\test;
 
-use enzyme\representer\test\data\Example1;
-use enzyme\representer\test\data\Example1Representer;
+use einfach\representer\test\data\Example1;
+use einfach\representer\test\data\Example1Representer;
 
 class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
 {
