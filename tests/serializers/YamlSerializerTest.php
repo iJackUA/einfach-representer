@@ -13,5 +13,10 @@ class YamlSerializerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($mock->toYAML(), "a: b\n");
     }
+
+    public function testDeserialization()
+    {
+
+    }
 }
 

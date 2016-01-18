@@ -18,8 +18,11 @@ trait YAML
 
     public function fromYAML($string)
     {
-        //TBD
+        $projection = YamlDumper::parse($string);
+        return $this->getReverseRepresentation($projection);
     }
 
     protected abstract function getRepresentation();
+
+    protected abstract function getReverseRepresentation($projection);
 }

@@ -33,7 +33,7 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
     {
         $projection = Example1Representer::one($this->target)->toArray();
 
-        $post = Example1Representer::restore($projection, Example1::class);
+        $post = Example1Representer::restore(Example1::class)->fromArray($projection);
 
         $this->assertInstanceOf(Example1::class, $post);
 

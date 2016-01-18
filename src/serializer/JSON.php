@@ -16,8 +16,11 @@ trait JSON
 
     public function fromJSON($string)
     {
-        // TBD
+        $projection = json_decode($string, true);
+        return $this->getReverseRepresentation($projection);
     }
 
     protected abstract function getRepresentation();
+
+    protected abstract function getReverseRepresentation($projection);
 }

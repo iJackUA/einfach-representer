@@ -16,20 +16,31 @@ trait Representer
      * Object that is being represented
      * or a collection handler
      */
-    protected $object;
+    protected $source;
     /**
-     * Strategy idicator
-     * 0 = restore
+     * Class name to be restored
+     *
+     * @var string
+     */
+    protected $targetClassName;
+    /**
+     * Strategy indicator
      * 1 = one
      * 2 = collection
+     * 3 = restore one
+     * 4 = restore collection
      *
      * @var string
      */
     protected $strategy;
 
-    public function __construct($object = null, $strategy = 0)
+    public function __construct($source = null, $strategy)
     {
-        $this->object = $object;
+        if (is_null($strategy)) {
+            throw new \Exception('Representer can not be initialized without a strategy param');
+        }
+
+        $this->source = $source;
         $this->strategy = $strategy;
     }
 
@@ -38,26 +49,40 @@ trait Representer
         return [];
     }
 
+    public function setTargetClassName($name)
+    {
+        $this->targetClassName = $name;
+    }
+
     /**
      * @param $name
      * @return PropertyRule
      */
     public function property($name)
     {
-        return new PropertyRule($this->object, $name);
+        return new PropertyRule($this->source, $name);
     }
 
     /**
      * Represent one instance
      *
-     * @param $object
+     * @param $source
      * @return static
      */
-    public static function one($object)
+    public static function one($source)
     {
-        return new static($object, 1);
+        return new static($source, 1);
     }
 
+    /**
+     * Represent collection of instances
+     *
+     * @param array $array
+     */
+    public static function collection(array $array)
+    {
+        //TBD
+    }
 
     protected function getCollectionRepresentation()
     {
@@ -94,30 +119,40 @@ trait Representer
             case 2:
                 return $this->getCollectionRepresentation();
             default:
-                throw new \Exception('Representer strategy not defined');
+                throw new \Exception('Representation strategy not defined');
         }
 
     }
 
-    /**
-     * Represent collection of instances
-     *
-     * @param array $array
-     */
-    public static function collection(array $array)
-    {
-        //TBD
-    }
 
     /**
-     * @param $projection
      * @param $className
+     * @return static
      */
-    public static function restore($projection, $className)
+    public static function restore($className)
     {
-        $instance = new static();
-        $rules = $instance->rules();
-        $object = new $className();
+        $instance = new static(null, 3);
+        $instance->setTargetClassName($className);
+        return $instance;
+    }
+
+    protected function getReverseRepresentation($projection)
+    {
+        switch ($this->strategy) {
+            case 3:
+                return $this->getOneReverseRepresentation($projection);
+            case 4:
+                return $this->getCollectionReverseRepresentation($projection);
+            default:
+                throw new \Exception('Reverse representation strategy not defined');
+        }
+
+    }
+
+    protected function getOneReverseRepresentation($projection)
+    {
+        $rules = $this->rules();
+        $target = new $this->targetClassName();
 
         if (!empty($rules)) {
             foreach ($rules as $rule) {
@@ -128,9 +163,14 @@ trait Representer
                 $key = key($resultArray);
                 $value = $resultArray[$key];
 
-                $object->$key = $value;
+                $target->$key = $value;
             }
         }
-        return $object;
+        return $target;
+    }
+
+    protected function getCollectionReverseRepresentation($projection)
+    {
+        //TBD
     }
 }
