@@ -1,8 +1,6 @@
 <?php
 namespace einfach\representer\test\data;
 
-use einfach\representer\serializer\YAML;
-
 class Example1Representer
 {
     use \einfach\representer\Representer;
@@ -15,6 +13,8 @@ class Example1Representer
             $this->property('title')
                 ->rename('titleAs')
                 ->def('Hi there!'),
+
+            $this->property('author'),
 
             $this->property('status'),
 

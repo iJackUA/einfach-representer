@@ -46,7 +46,7 @@ class PropertyRule
         $name = ($this->toName) ? $this->toName : $this->name;
 
         if (is_callable($this->getterCallable)) {
-            $value = call_user_func($this->getterCallable, $this->object, $this->name);
+            $value = call_user_func_array($this->getterCallable, [$this->object, $this->name]);
         } else {
             $value = ($this->object->{$this->name}) ? $this->object->{$this->name} : $this->defaultValue;
         }
@@ -60,7 +60,7 @@ class PropertyRule
         $value = $projection[$name];
 
         if (is_callable($this->setterCallable)) {
-            $value = call_user_func($this->setterCallable, $this->object, $this->name, $value);
+            $value = call_user_func_array($this->setterCallable, [$this->object, $this->name, $value]);
         }
 
         return [$name => $value];

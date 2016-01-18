@@ -162,7 +162,7 @@ trait Representer
                 reset($resultArray);
                 $key = key($resultArray);
                 $value = $resultArray[$key];
-
+print_r($target);
                 $target->$key = $value;
             }
         }

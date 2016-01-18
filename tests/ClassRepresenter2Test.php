@@ -2,9 +2,9 @@
 namespace einfach\representer\test;
 
 use einfach\representer\test\data\Example1;
-use einfach\representer\test\data\Example1Representer;
+use einfach\representer\test\data\Example1Representer2;
 
-class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
+class ClassRepresenter2Test extends \PHPUnit_Framework_TestCase
 {
     public $target;
 
@@ -20,28 +20,29 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
 
     public function testProjection()
     {
-        $projection = Example1Representer::one($this->target)->toArray();
+        $projection = Example1Representer2::one($this->target)->toArray();
 
         $this->assertNotEmpty($projection);
 
         $this->assertEquals($projection['titleAs'], $this->target->title);
-        $this->assertEquals($projection['author'], $this->target->author);
         $this->assertEquals($projection['status'], $this->target->status);
+        $this->assertEquals($projection['statusPlusOne'], $this->target->status + 1);
         $this->assertEquals($projection['pubDate'], $this->target->pubDate->format('Y-m-d'));
     }
 
     public function testRestore()
     {
-        $projection = Example1Representer::one($this->target)->toArray();
+        $projection = Example1Representer2::one($this->target)->toArray();
 
-        $post = Example1Representer::restore(Example1::class)->fromArray($projection);
+        $post = Example1Representer2::restore(Example1::class)->fromArray($projection);
 
         $this->assertInstanceOf(Example1::class, $post);
-
+        print_r($post);
         $this->assertEquals($post->title, $this->target->title);
-        $this->assertEquals($post->author, $this->target->author);
         $this->assertEquals($post->status, $this->target->status);
         $this->assertEquals($post->pubDate, $this->target->pubDate);
+
+        $this->assertObjectNotHasAttribute('statusPlusOne', $post);
     }
 
 }

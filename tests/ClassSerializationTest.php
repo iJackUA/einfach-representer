@@ -30,6 +30,7 @@ class ClassSerializationTest extends \PHPUnit_Framework_TestCase
         $text = Example1Representer::one($this->target)->toYAML();
         $yaml =
             "titleAs: 'Cool story bro'
+author: 'Ievgen Kuzminov'
 status: 1
 pubDate: '{$this->target->pubDate->format('Y-m-d')}'
 ";
@@ -40,7 +41,7 @@ pubDate: '{$this->target->pubDate->format('Y-m-d')}'
 
     public function testDeserializationFromJson()
     {
-        $json = '{"titleAs":"Cool story bro","status":1,"pubDate":"2016-01-18"}';
+        $json = '{"titleAs":"Cool story bro","author":"Ievgen Kuzminov","status":1,"pubDate":"2016-01-18"}';
         $object = Example1Representer::restore(Example1::class)->fromJSON($json);
 
         $this->assertInstanceOf(Example1::class, $object);
@@ -50,6 +51,7 @@ pubDate: '{$this->target->pubDate->format('Y-m-d')}'
     {
         $yaml =
             "titleAs: 'Cool story bro'
+author: 'Ievgen Kuzminov'
 status: 1
 pubDate: '2016-01-18'
 ";
