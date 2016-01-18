@@ -16,8 +16,10 @@ trait ArraySerializer
 
     public function fromArray($array)
     {
-        //TBD
+        return $this->getReverseRepresentation($array);
     }
 
     protected abstract function getRepresentation();
+
+    protected abstract function getReverseRepresentation($projection);
 }

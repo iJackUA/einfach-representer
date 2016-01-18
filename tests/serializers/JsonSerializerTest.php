@@ -13,5 +13,10 @@ class JsonSerializerTest extends \PHPUnit_Framework_TestCase
 
         $this->assertJson($mock->toJSON());
     }
+
+    public function testDeserialization()
+    {
+
+    }
 }
 

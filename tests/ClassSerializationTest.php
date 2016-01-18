@@ -18,16 +18,6 @@ class ClassSerializationTest extends \PHPUnit_Framework_TestCase
         unset($this->target);
     }
 
-
-    public function testSerializationAsArray()
-    {
-        $projection = Example1Representer::one($this->target)->toArray();
-
-        $this->assertEquals($projection['titleAs'], $this->target->title);
-        $this->assertEquals($projection['status'], $this->target->status);
-        $this->assertEquals($projection['pubDate'], $this->target->pubDate->format('Y-m-d'));
-    }
-
     public function testSerializationAsJson()
     {
         $text = Example1Representer::one($this->target)->toJSON();
@@ -45,6 +35,27 @@ pubDate: '{$this->target->pubDate->format('Y-m-d')}'
 ";
 
         $this->assertEquals($text, $yaml);
+    }
+
+
+    public function testDeserializationFromJson()
+    {
+        $json = '{"titleAs":"Cool story bro","status":1,"pubDate":"2016-01-18"}';
+        $object = Example1Representer::restore(Example1::class)->fromJSON($json);
+
+        $this->assertInstanceOf(Example1::class, $object);
+    }
+
+    public function testDeserializationFromYaml()
+    {
+        $yaml =
+            "titleAs: 'Cool story bro'
+status: 1
+pubDate: '2016-01-18'
+";
+        $object = Example1Representer::restore(Example1::class)->fromYAML($yaml);
+
+        $this->assertInstanceOf(Example1::class, $object);
     }
 
 }
