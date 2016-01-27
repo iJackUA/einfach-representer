@@ -151,7 +151,8 @@ class PostRepresenter
     ....
 }
 
-$projection = PostRepresenter::one($post)->fromJSON();
+$projection = PostRepresenter::one($post)->toJSON();
+$object = PostRepresenter::one($post)->fromJSON($projection);
 ```
 
 
