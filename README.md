@@ -82,13 +82,28 @@ $post = new Post();
 $projection = PostRepresenter::one($post)->toArray();
 ```
 
+## Collection Representation
+
+```php
+$post1 = new Post();
+$post2 = new Post();
+$post3 = new Post();
+$posts = [$post1, $post2, $post3]
+$projection = PostRepresenter::collection($posts)->toArray();
+```
 
 ## Restore object from representation 
 
 Restoring object from presentation array data
 
 ```php
-$restoredPost = PostRepresenter::restore($projection, Post::class);
+$restoredPost = PostRepresenter::restore(Post::class)->fromArray($projection);
+```
+
+## Restore objects Collection from representation
+
+```php
+$restoredPosts = PostRepresenter::restoreCollection(Post::class)->fromArray($collectionProjection);
 ```
 
 ## Serialization
@@ -118,6 +133,27 @@ class PostRepresenter
 $projection = PostRepresenter::one($post)->toYAML();
 ```
 
+All the same goes for Collection representation.
+
+## De-serialisation
+
+Pretty similar to serialisation it has reverse functions
+
+* `fromArray`
+* `fromJSON`
+* `fromYAML`
+
+```php
+class PostRepresenter
+{
+    use \einfach\representer\Representer;
+    use \einfach\representer\serializer\JSON;
+    ....
+}
+
+$projection = PostRepresenter::one($post)->fromJSON();
+```
+
 
 
 ## TODO Ideas: 
@@ -125,12 +161,12 @@ $projection = PostRepresenter::one($post)->toYAML();
 * ~~Traits composition (Representers not inherited, but added via Traits)~~
 * ~~Serialisation/de-serialisation (`toJSON`, `toYAML`)~~
 * ~~De-serialisation (`fromJSON`, `fromYAML`, `fromArray`)~~
+* ~~Collection representation `::collection` and `->collection()`.~~
+* Wrapping collections `->wrap('items')` and `->removeWrap()` for `->collection()`
 * Inverse property declaration (to allow any property name in projection, not coupled with source)
 * Property rules: render_null  (Manage default? Example `rename: function($object, $attr) { return uppercase($attr); } `)
 * Property decoration/Nested serialization (`->representer(ArtistRepresenter::class)->class(Artist::class)`)
-* Nested properties `->property('artist')->nested([ $this->property('films')->..., $this->property('name')->... ])` 
-* Collection representation `::collection` and `->collection()` 
-* Wrapping collections `->wrap('items')` and `->removeWrap()` for `->collection()`
+* Nested properties `->property('artist')->nested([ $this->property('films')->..., $this->property('name')->... ])`
 * Ability for "array to array" and "object to object" representations
 * Coersion (`->int`, `->float`, `->string`). A way to coerce complex types/classes, DateTime?
 * External options in `::one`, `::collection` (should be passed to all $callables)

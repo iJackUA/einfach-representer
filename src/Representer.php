@@ -78,16 +78,20 @@ trait Representer
      * Represent collection of instances
      *
      * @param array $array
+     * @return static
      */
     public static function collection(array $array)
     {
-        //TBD
+        return new static($array, 2);
     }
 
     protected function getCollectionRepresentation()
     {
-        //TBD
-        return ['collection', 'tbd'];
+        if (is_array($this->source) && count($this->source) > 0) {
+            return array_map(function ($object) {
+                return static::one($object)->getOneRepresentation();
+            }, $this->source);
+        }
     }
 
     protected function getOneRepresentation()
@@ -136,6 +140,17 @@ trait Representer
         return $instance;
     }
 
+    /**
+     * @param string $className
+     * @return static
+     */
+    public static function restoreCollection($className)
+    {
+        $instance = new static(null, 4);
+        $instance->setTargetClassName($className);
+        return $instance;
+    }
+
     protected function getReverseRepresentation($projection)
     {
         switch ($this->strategy) {
@@ -169,8 +184,12 @@ trait Representer
         return $target;
     }
 
-    protected function getCollectionReverseRepresentation($projection)
+    protected function getCollectionReverseRepresentation($projectionArray)
     {
-        //TBD
+        if (is_array($projectionArray) && count($projectionArray) > 0) {
+            return array_map(function ($projection) {
+                return static::restore($this->targetClassName)->getOneReverseRepresentation($projection);
+            }, $projectionArray);
+        }
     }
 }
