@@ -34,7 +34,7 @@ trait Representer
      */
     protected $strategy;
 
-    public function __construct($source = null, $strategy)
+    public function __construct($source, $strategy)
     {
         if (is_null($strategy)) {
             throw new \Exception('Representer can not be initialized without a strategy param');
