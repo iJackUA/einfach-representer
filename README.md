@@ -88,7 +88,7 @@ $projection = PostRepresenter::one($post)->toArray();
 $post1 = new Post();
 $post2 = new Post();
 $post3 = new Post();
-$posts = [$post1, $post2, $post3]
+$posts = [$post1, $post2, $post3];
 $projection = PostRepresenter::collection($posts)->toArray();
 ```
 
