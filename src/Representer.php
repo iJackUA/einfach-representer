@@ -49,6 +49,16 @@ trait Representer
         return [];
     }
 
+    /**
+     * Return property name to wrap a collection representation
+     * If `null` - no wrapper added
+     * @return null | string
+     */
+    public function collectionWrapper()
+    {
+        return null;
+    }
+
     public function setTargetClassName($name)
     {
         $this->targetClassName = $name;
@@ -88,28 +98,36 @@ trait Representer
     protected function getCollectionRepresentation()
     {
         if (is_array($this->source) && count($this->source) > 0) {
-            return array_map(function ($object) {
+            $representation = array_map(function ($object) {
                 return static::one($object)->getOneRepresentation();
             }, $this->source);
+
+            if ($wrapperName = $this->collectionWrapper()) {
+                return [$wrapperName => $representation];
+            } else {
+                return $representation;
+            }
         }
     }
 
     protected function getOneRepresentation()
     {
         $rules = $this->rules();
+        if (empty($rules)) {
+            throw new \Exception("There are rules specified in " . static::class . " representer");
+        }
+
         $represented = [];
 
-        if (!empty($rules)) {
-            foreach ($rules as $rule) {
-                /** @var $rule PropertyRule */
-                $resultArray = $rule->compile();
+        foreach ($rules as $rule) {
+            /** @var $rule PropertyRule */
+            $resultArray = $rule->compile();
 
-                reset($resultArray);
-                $key = key($resultArray);
-                $value = $resultArray[$key];
+            reset($resultArray);
+            $key = key($resultArray);
+            $value = $resultArray[$key];
 
-                $represented[$key] = $value;
-            }
+            $represented[$key] = $value;
         }
 
         return $represented;
@@ -123,7 +141,7 @@ trait Representer
             case 2:
                 return $this->getCollectionRepresentation();
             default:
-                throw new \Exception('Representation strategy not defined');
+                throw new \Exception('Wrong representation strategy selected. Maybe you have accidentally called `toJSON` instead of `fromJSON`?');
         }
 
     }
@@ -167,25 +185,36 @@ trait Representer
     protected function getOneReverseRepresentation($projection)
     {
         $rules = $this->rules();
+        if (empty($rules)) {
+            throw new \Exception("There are rules specified in " . static::class . " representer");
+        }
+
         $target = new $this->targetClassName();
 
-        if (!empty($rules)) {
-            foreach ($rules as $rule) {
-                /** @var $rule PropertyRule */
-                $resultArray = $rule->reverseCompile($projection);
+        foreach ($rules as $rule) {
+            /** @var $rule PropertyRule */
+            $resultArray = $rule->reverseCompile($projection);
 
-                reset($resultArray);
-                $key = key($resultArray);
-                $value = $resultArray[$key];
+            reset($resultArray);
+            $key = key($resultArray);
+            $value = $resultArray[$key];
 
-                $target->$key = $value;
-            }
+            $target->$key = $value;
         }
+
         return $target;
     }
 
     protected function getCollectionReverseRepresentation($projectionArray)
     {
+        if ($wrapperName = $this->collectionWrapper()) {
+            if (!isset($projectionArray[$wrapperName])) {
+                $siblingKeys = join(',', array_keys($projectionArray));
+                throw new \Exception("Collection wrapper `{$wrapperName}` not found during restore (instead following keys found: {$siblingKeys} ). In " . static::class . " representer");
+            }
+            $projectionArray = $projectionArray[$wrapperName];
+        }
+
         if (is_array($projectionArray) && count($projectionArray) > 0) {
             return array_map(function ($projection) {
                 return static::restore($this->targetClassName)->getOneReverseRepresentation($projection);
