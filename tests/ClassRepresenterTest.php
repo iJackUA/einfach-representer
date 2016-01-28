@@ -3,14 +3,17 @@ namespace einfach\representer\test;
 
 use einfach\representer\test\data\Example1;
 use einfach\representer\test\data\Example1Representer;
+use einfach\representer\test\data\Post;
 
 class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
 {
+    use lib\FactoryLoader;
+
     public $target;
 
     public function setUp()
     {
-        $this->target = new Example1();
+        $this->target = $this->instance(Post::class);
     }
 
     public function tearDown()
@@ -33,9 +36,9 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
     {
         $projection = Example1Representer::one($this->target)->toArray();
 
-        $post = Example1Representer::restore(Example1::class)->fromArray($projection);
+        $post = Example1Representer::restore(Post::class)->fromArray($projection);
 
-        $this->assertInstanceOf(Example1::class, $post);
+        $this->assertInstanceOf(Post::class, $post);
 
         $this->assertEquals($post->title, $this->target->title);
         $this->assertEquals($post->status, $this->target->status);
@@ -63,15 +66,15 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
     public function testCollectionRestore()
     {
         $objCollection = [
-            clone($this->target),
-            clone($this->target),
-            clone($this->target)
+            $this->instance(Post::class),
+            $this->instance(Post::class),
+            $this->instance(Post::class)
         ];
 
         $collProjection = Example1Representer::collection($objCollection)->toArray();
 
-        $restoredCollection = Example1Representer::restoreCollection(Example1::class)->fromArray($collProjection);
-
+        $restoredCollection = Example1Representer::restoreCollection(Post::class)->fromArray($collProjection);
+        print_r($restoredCollection);
         $this->assertEquals(count($objCollection), count($restoredCollection));
 
         foreach ($restoredCollection as $key => $object) {
