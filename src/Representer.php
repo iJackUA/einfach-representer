@@ -141,7 +141,8 @@ trait Representer
             case 2:
                 return $this->getCollectionRepresentation();
             default:
-                throw new \Exception('Wrong representation strategy selected. Maybe you have accidentally called `toJSON` instead of `fromJSON`?');
+                throw new \Exception('Wrong representation strategy selected. Maybe you have accidentally
+                called `toJSON` instead of `fromJSON`?');
         }
 
     }
@@ -210,7 +211,8 @@ trait Representer
         if ($wrapperName = $this->collectionWrapper()) {
             if (!isset($projectionArray[$wrapperName])) {
                 $siblingKeys = join(',', array_keys($projectionArray));
-                throw new \Exception("Collection wrapper `{$wrapperName}` not found during restore (instead following keys found: {$siblingKeys} ). In " . static::class . " representer");
+                throw new \Exception("Collection wrapper `{$wrapperName}` not found during restore
+                (instead following keys found: {$siblingKeys} ). In " . static::class . " representer");
             }
             $projectionArray = $projectionArray[$wrapperName];
         }
