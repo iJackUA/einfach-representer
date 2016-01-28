@@ -1,10 +1,8 @@
 ## Einfach-Representer
 
-[![Build Status][ico-travis]][link-travis]
+[![Build Status][ico-travis]][link-travis] [![Latest Version on Packagist][ico-version]][link-packagist] [![Total Downloads][ico-downloads]][link-downloads] [![Software License][ico-license]](LICENSE.md)
 
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer] [![Quality Score][ico-code-quality]][link-code-quality] [![Code Climate][ico-codeclimate]][link-codeclimate]
-
-[![Latest Version on Packagist][ico-version]][link-packagist] [![Total Downloads][ico-downloads]][link-downloads] [![Software License][ico-license]](LICENSE.md)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c44c1a61-0864-4ae6-9712-e2d7120fa9c5/small.png)](https://insight.sensiolabs.com/projects/c44c1a61-0864-4ae6-9712-e2d7120fa9c5) [![Coverage Status][ico-scrutinizer]][link-scrutinizer] [![Quality Score][ico-code-quality]][link-code-quality] [![Code Climate][ico-codeclimate]][link-codeclimate]
 
 
 Proof of concept representer objects with chain syntax rules notation.
