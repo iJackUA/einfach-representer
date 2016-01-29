@@ -155,7 +155,7 @@ $object = PostRepresenter::one($post)->fromJSON($projection);
 
 
 
-## TODO Ideas: 
+## Functionality ideas:
 
 * ~~Traits composition (Representers not inherited, but added via Traits)~~
 * ~~Serialisation/de-serialisation (`toJSON`, `toYAML`)~~
