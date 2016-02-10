@@ -1,7 +1,7 @@
 <?php
 namespace einfach\representer\test\data;
 
-class Example2Representer extends Example1Representer
+class PostWrappedRepresenter extends Post1Representer
 {
     public function collectionWrapper()
     {

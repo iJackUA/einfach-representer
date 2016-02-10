@@ -1,8 +1,7 @@
 <?php
 namespace einfach\representer\test;
 
-use einfach\representer\test\data\Example1;
-use einfach\representer\test\data\Example1Representer;
+use einfach\representer\test\data\Post1Representer;
 use einfach\representer\test\data\Post;
 
 class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
@@ -23,7 +22,7 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
 
     public function testProjection()
     {
-        $projection = Example1Representer::one($this->target)->toArray();
+        $projection = Post1Representer::one($this->target)->toArray();
 
         $this->assertNotEmpty($projection);
 
@@ -34,9 +33,9 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
 
     public function testRestore()
     {
-        $projection = Example1Representer::one($this->target)->toArray();
+        $projection = Post1Representer::one($this->target)->toArray();
 
-        $post = Example1Representer::restore(Post::class)->fromArray($projection);
+        $post = Post1Representer::restore(Post::class)->fromArray($projection);
 
         $this->assertInstanceOf(Post::class, $post);
 
@@ -52,7 +51,7 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
             clone($this->target),
             clone($this->target)
         ];
-        $collProjection = Example1Representer::collection($objCollection)->toArray();
+        $collProjection = Post1Representer::collection($objCollection)->toArray();
 
         $this->assertEquals(count($objCollection), count($collProjection));
 
@@ -71,9 +70,9 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
             $this->instance(Post::class)
         ];
 
-        $collProjection = Example1Representer::collection($objCollection)->toArray();
+        $collProjection = Post1Representer::collection($objCollection)->toArray();
 
-        $restoredCollection = Example1Representer::restoreCollection(Post::class)->fromArray($collProjection);
+        $restoredCollection = Post1Representer::restoreCollection(Post::class)->fromArray($collProjection);
 
         $this->assertEquals(count($objCollection), count($restoredCollection));
 

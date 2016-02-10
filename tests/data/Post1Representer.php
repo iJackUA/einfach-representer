@@ -1,9 +1,7 @@
 <?php
 namespace einfach\representer\test\data;
 
-use einfach\representer\serializer\YAML;
-
-class Example1Representer
+class Post1Representer
 {
     use \einfach\representer\Representer;
     use \einfach\representer\serializer\JSON;

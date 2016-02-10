@@ -1,20 +1,21 @@
 <?php
 namespace einfach\representer\test;
 
-use einfach\representer\test\data\Example1;
-use einfach\representer\test\data\Example1Representer;
-use einfach\representer\test\data\Example2Representer;
+use einfach\representer\test\data\Post;
+use einfach\representer\test\data\PostWrappedRepresenter;
 
 class CollectionWrapperTest extends \PHPUnit_Framework_TestCase
 {
+    use lib\FactoryLoader;
+
     public $collection;
 
     public function setUp()
     {
         $this->collection = [
-            new Example1(),
-            new Example1(),
-            new Example1()
+            $this->instance(Post::class),
+            $this->instance(Post::class),
+            $this->instance(Post::class)
         ];
     }
 
@@ -25,7 +26,7 @@ class CollectionWrapperTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializationWithWrap()
     {
-        $projection = Example2Representer::collection($this->collection)->toArray();
+        $projection = PostWrappedRepresenter::collection($this->collection)->toArray();
 
         $this->assertArrayHasKey('examplesCollection', $projection);
         $this->assertEquals(count($projection['examplesCollection']), count($this->collection));
@@ -33,8 +34,8 @@ class CollectionWrapperTest extends \PHPUnit_Framework_TestCase
 
     public function testRestoreWithWrap()
     {
-        $projection = Example2Representer::collection($this->collection)->toArray();
-        $collection = Example2Representer::restoreCollection(Example1::class)->fromArray($projection);
+        $projection = PostWrappedRepresenter::collection($this->collection)->toArray();
+        $collection = PostWrappedRepresenter::restoreCollection(Post::class)->fromArray($projection);
 
         $this->assertEquals(count($collection), count($this->collection));
     }

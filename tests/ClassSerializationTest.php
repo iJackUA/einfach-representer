@@ -1,16 +1,18 @@
 <?php
 namespace einfach\representer\test;
 
-use einfach\representer\test\data\Example1;
-use einfach\representer\test\data\Example1Representer;
+use einfach\representer\test\data\Post;
+use einfach\representer\test\data\Post1Representer;
 
 class ClassSerializationTest extends \PHPUnit_Framework_TestCase
 {
+    use lib\FactoryLoader;
+
     public $target;
 
     public function setUp()
     {
-        $this->target = new Example1();
+        $this->target = $this->instance(Post::class);
     }
 
     public function tearDown()
@@ -20,17 +22,17 @@ class ClassSerializationTest extends \PHPUnit_Framework_TestCase
 
     public function testSerializationAsJson()
     {
-        $text = Example1Representer::one($this->target)->toJSON();
+        $text = Post1Representer::one($this->target)->toJSON();
 
         $this->assertJson($text);
     }
 
     public function testSerializationAsYaml()
     {
-        $text = Example1Representer::one($this->target)->toYAML();
+        $text = Post1Representer::one($this->target)->toYAML();
         $yaml =
-            "titleAs: 'Cool story bro'
-status: 1
+            "titleAs: '{$this->target->title}'
+status: {$this->target->status}
 pubDate: '{$this->target->pubDate->format('Y-m-d')}'
 ";
 
@@ -41,9 +43,9 @@ pubDate: '{$this->target->pubDate->format('Y-m-d')}'
     public function testDeserializationFromJson()
     {
         $json = '{"titleAs":"Cool story bro","status":1,"pubDate":"2016-01-18"}';
-        $object = Example1Representer::restore(Example1::class)->fromJSON($json);
+        $object = Post1Representer::restore(Post::class)->fromJSON($json);
 
-        $this->assertInstanceOf(Example1::class, $object);
+        $this->assertInstanceOf(Post::class, $object);
     }
 
     public function testDeserializationFromYaml()
@@ -53,9 +55,9 @@ pubDate: '{$this->target->pubDate->format('Y-m-d')}'
 status: 1
 pubDate: '2016-01-18'
 ";
-        $object = Example1Representer::restore(Example1::class)->fromYAML($yaml);
+        $object = Post1Representer::restore(Post::class)->fromYAML($yaml);
 
-        $this->assertInstanceOf(Example1::class, $object);
+        $this->assertInstanceOf(Post::class, $object);
     }
 
 }
