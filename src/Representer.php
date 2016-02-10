@@ -52,6 +52,7 @@ trait Representer
     /**
      * Return property name to wrap a collection representation
      * If `null` - no wrapper added
+     *
      * @return null | string
      */
     public function collectionWrapper()
@@ -195,7 +196,6 @@ trait Representer
         foreach ($rules as $rule) {
             /** @var $rule PropertyRule */
             $resultArray = $rule->reverseCompile($projection);
-
             reset($resultArray);
             $key = key($resultArray);
             $value = $resultArray[$key];

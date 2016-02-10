@@ -42,7 +42,7 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals($post->title, $this->target->title);
         $this->assertEquals($post->status, $this->target->status);
-        $this->assertEquals($post->pubDate, $this->target->pubDate);
+        $this->assertEquals($post->pubDate->format('Y-m-d'), $this->target->pubDate->format('Y-m-d'));
     }
 
     public function testCollectionProjection()
@@ -74,13 +74,13 @@ class ClassRepresenterTest extends \PHPUnit_Framework_TestCase
         $collProjection = Example1Representer::collection($objCollection)->toArray();
 
         $restoredCollection = Example1Representer::restoreCollection(Post::class)->fromArray($collProjection);
-        print_r($restoredCollection);
+
         $this->assertEquals(count($objCollection), count($restoredCollection));
 
         foreach ($restoredCollection as $key => $object) {
             $this->assertEquals($objCollection[$key]->title, $object->title);
             $this->assertEquals($objCollection[$key]->status, $object->status);
-            $this->assertEquals($objCollection[$key]->pubDate, $object->pubDate);
+            $this->assertEquals($objCollection[$key]->pubDate->format('Y-m-d'), $object->pubDate->format('Y-m-d'));
         }
     }
 

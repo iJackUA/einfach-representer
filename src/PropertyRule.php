@@ -63,6 +63,6 @@ class PropertyRule
             $value = call_user_func($this->setterCallable, $this->object, $this->name, $value);
         }
 
-        return [$name => $value];
+        return [$this->name => $value];
     }
 }
